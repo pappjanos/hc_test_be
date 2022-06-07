@@ -138,38 +138,6 @@ const updateDeposit = async (req, res) => {
   }
 };
 
-const resetDeposit = async (req, res) => {
-  try {
-    const userId = res.locals.user.id
-    const userRole = res.locals.user.role
-    if (userRole !== 'buyer') {
-      return res.status(401).json({
-        message: "User does not have the right privilige",
-        msg_id: "PRODUCT_ROLE_MISSING",
-      });
-    }
-
-    await User.update({deposit: 0 }, {
-      where: { id: userId },
-      returning: true,
-      plain: true,
-    });
-
-    const updatedUserState = await User.findOne({ where: { id: userId } });
-
-    return res.status(200).json({
-      message: "Deposit reseted succesfully!",
-      msg_id: "DEPOSIT_RESETED",
-      deposit: updatedUserState.dataValues.deposit,
-    });
-  } catch (error) {
-    console.log(error);
-    return res.status(500).json({
-      message: "Internal server error",
-      msg_id: "INTERNAL_SERVER_ERROR",
-    });
-  }
-};
 
 module.exports = {
   buyProduct,
