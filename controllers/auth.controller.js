@@ -4,7 +4,11 @@ const jwt = require("jsonwebtoken");
 const config = require("../config/config");
 
 const register = async (req, res) => {
-  const { email, password } = req.body;
+  const { email, password, role } = req.body;
+
+  if (!email || !password || !role) {
+    return res.status(400).json({message: "Bad request", msg_id:"BAD_REQUEST"})
+  }
 
   try {
     const registeredEmail = await User.findOne({
@@ -29,6 +33,8 @@ const register = async (req, res) => {
         const user = await User.create({
           email,
           password: hashedPassword,
+          role,
+          deposit: 0,
         });
         return user
           ? res.status(200).json({
@@ -57,6 +63,9 @@ const register = async (req, res) => {
 const login = async (req, res) => {
   const { email, password } = req.body;
 
+  if (!email || !password) {
+    return res.status(400).json({message: "Bad request", msg_id:"BAD_REQUEST"})
+  }
   const user = await User.findOne({
     where: { email },
   });
@@ -74,7 +83,7 @@ const login = async (req, res) => {
         { user: user.dataValues },
         config.jwt.secret,
         {
-          expiresIn: "3000s",
+          expiresIn: config.jwt.accessExpirationMinutes,
         },
         (err, token) => {
           return res.status(200).json({ message: "Login succesfull", token });

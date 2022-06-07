@@ -6,7 +6,8 @@ const helmet = require("helmet");
 const cors = require("cors");
 const xss = require("xss-clean");
 const compression = require("compression");
-const rateLimit = require("express-rate-limit");
+// const errorHandler = require("./middleware/error.js");
+// const failSafeHandler = require("./middleware/failsafe");
 
 //utilities
 const httpStatus = require("http-status");
@@ -33,17 +34,6 @@ app.use(express.urlencoded({ extended: true }));
 app.use(cors());
 app.use(xss());
 app.use(compression());
-
-if (config.env === "prod") {
-  app.use(
-    "/v1/auth",
-    rateLimit({
-      windowMs: 15 * 60 * 1000,
-      max: 20,
-      skipSuccessfulRequests: true,
-    })
-  );
-}
 
 // v1 api routes
 app.use("/v1", routes);
