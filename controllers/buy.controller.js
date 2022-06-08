@@ -1,21 +1,6 @@
 const User = require("../models/User");
 const Product = require("../models/Product");
-
-const amountTocoins = (amount, coins) => {
-  if (amount === 0) {
-    return [];
-  }
-  else {
-    if (amount >= coins[0]) {
-      left = (amount - coins[0]);
-      return [coins[0]].concat(amountTocoins(left, coins));
-    }
-    else {
-      coins.shift();
-      return amountTocoins(amount, coins);
-    }
-  }
-} 
+const amountToCoins = require("../utils/amountToCoins");
 
 const buyProduct = async (req, res) => {
   try {
@@ -84,7 +69,7 @@ const buyProduct = async (req, res) => {
       productName,
       // balanceAfterCheckout,
       changeAmount: balanceAfterCheckout,
-      changeCoins: amountTocoins(balanceAfterCheckout, [100, 50, 20, 10, 5])
+      changeCoins: amountToCoins(balanceAfterCheckout, [100, 50, 20, 10, 5])
     });
   } 
   catch (error) {

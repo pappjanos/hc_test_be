@@ -1,4 +1,5 @@
 const User = require("../models/User");
+const amountToCoins = require("../utils/amountToCoins");
 
 const getDeposit = async (req, res) => {
   try {
@@ -79,6 +80,10 @@ const resetDeposit = async (req, res) => {
       });
     }
 
+    const resettingUser = await User.findOne({ where: { id: userId } });
+    const resettingDeposit = resettingUser.dataValues.deposit
+    console.log(resettingDeposit)
+
     await User.update({deposit: 0 }, {
       where: { id: userId },
       returning: true,
@@ -90,7 +95,9 @@ const resetDeposit = async (req, res) => {
     return res.status(200).json({
       message: "Deposit reseted succesfully!",
       msg_id: "DEPOSIT_RESETED",
-      deposit: updatedUserState.dataValues.deposit,
+      currentDeposit: updatedUserState.dataValues.deposit,
+      changeAmount: resettingDeposit,
+      changeCoins: amountToCoins(resettingDeposit, [100, 50, 20, 10, 5])
     });
   } catch (error) {
     console.log(error);
