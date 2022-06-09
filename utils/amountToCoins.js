@@ -13,5 +13,5 @@ const amountTocoins = (amount, coins) => {
       return amountTocoins(amount, coins);
     }
   }
-} 
+}
 module.exports = amountTocoins;

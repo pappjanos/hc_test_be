@@ -7,11 +7,8 @@ const xss = require("xss-clean");
 const compression = require("compression");
 
 //utilities
-const httpStatus = require("http-status");
-
 const routes = require("./routes/v1");
 const db = require("./config/database.js");
-const Sequelize = require("sequelize");
 
 //test db
 db.authenticate()

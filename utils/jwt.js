@@ -11,14 +11,13 @@ function verifyToken(req, res, next) {
   } else {
     const bearerToken = bearerHeader.split(" ")[1];
     req.token = bearerToken;
-    const userData = jwt.verify(req.token, config.jwt.secret, 
-      (err, authData) =>
-      {
+    const userData = jwt.verify(req.token, config.jwt.secret,
+      (err, authData) => {
         return err
           ? res.status(403).json({
-              message: "User is not authorized",
-              msg_id: "USR_NOT_AUTHORIZED",
-            })
+            message: "User is not authorized",
+            msg_id: "USR_NOT_AUTHORIZED",
+          })
           : authData.user
       }
     );

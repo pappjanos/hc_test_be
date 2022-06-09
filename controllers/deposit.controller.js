@@ -14,15 +14,15 @@ const getDeposit = async (req, res) => {
     const userState = await User.findOne({ where: { id: userId } });
 
     return res.status(200).json({
-      deposit: userState.dataValues.deposit 
+      deposit: userState.dataValues.deposit
     });
-  } 
+  }
   catch (error) {
     console.log(error);
     return res.status(500).json({
       message: "Internal server error",
       msg_id: "INTERNAL_SERVER_ERROR",
-    });    
+    });
   }
 };
 
@@ -43,11 +43,11 @@ const updateDeposit = async (req, res) => {
       return res.status(400).json({
         message: "Deposit shall be 5, 10, 20, 50 or 100",
         msg_id: "DEPOSIT_ERROR",
-    });
+      });
 
     const userCurrentState = await User.findOne({ where: { id: userId } });
 
-    await User.update({deposit: userCurrentState.dataValues.deposit + deposit }, {
+    await User.update({ deposit: userCurrentState.dataValues.deposit + deposit }, {
       where: { id: userId },
       returning: true,
       plain: true,
@@ -84,7 +84,7 @@ const resetDeposit = async (req, res) => {
     const resettingDeposit = resettingUser.dataValues.deposit
     console.log(resettingDeposit)
 
-    await User.update({deposit: 0 }, {
+    await User.update({ deposit: 0 }, {
       where: { id: userId },
       returning: true,
       plain: true,

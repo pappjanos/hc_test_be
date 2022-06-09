@@ -76,15 +76,15 @@ const getProducts = async (req, res) => {
     const products = await Product.findAll({
       order: [["productName", "ASC"]],
     });
-  
+
     return res.status(200).json({ products });
-  } 
+  }
   catch (error) {
     console.log(error);
     return res.status(500).json({
       message: "Internal server error",
       msg_id: "INTERNAL_SERVER_ERROR",
-    });    
+    });
   }
 };
 
@@ -120,7 +120,7 @@ const patchProduct = async (req, res) => {
       });
 
     if (product) {
-      await Product.update({amountAvailable, productName, cost }, {
+      await Product.update({ amountAvailable, productName, cost }, {
         where: { id },
         returning: true,
         plain: true,

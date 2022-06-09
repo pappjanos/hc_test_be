@@ -58,7 +58,7 @@ const buyProduct = async (req, res) => {
       plain: true,
     });
     
-    await User.update({ deposit: 0 }, { //balanceAfterCheckout
+    await User.update({ deposit: 0 }, { 
       where: { id: userId },
       returning: true,
       plain: true,
@@ -68,7 +68,6 @@ const buyProduct = async (req, res) => {
       amount,
       currentCheckout,
       productName,
-      // balanceAfterCheckout,
       changeAmount: balanceAfterCheckout,
       changeCoins: amountToCoins(balanceAfterCheckout, [100, 50, 20, 10, 5])
     });

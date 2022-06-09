@@ -7,7 +7,7 @@ const register = async (req, res) => {
   const { email, password, role } = req.body;
 
   if (!email || !password || !role) {
-    return res.status(400).json({message: "Bad request", msg_id:"BAD_REQUEST"})
+    return res.status(400).json({ message: "Bad request", msg_id: "BAD_REQUEST" })
   }
 
   try {
@@ -38,13 +38,13 @@ const register = async (req, res) => {
         });
         return user
           ? res.status(200).json({
-              message: "Registration successfull!",
-              msg_id: "REGISTRATION_SUCCESS",
-              user,
-            })
+            message: "Registration successfull!",
+            msg_id: "REGISTRATION_SUCCESS",
+            user,
+          })
           : res
-              .status(500)
-              .json({ message: "Database error", msg_id: "DB_ERROR" });
+            .status(500)
+            .json({ message: "Database error", msg_id: "DB_ERROR" });
       } catch (error) {
         console.log(error);
         return res
@@ -64,7 +64,7 @@ const login = async (req, res) => {
   const { email, password } = req.body;
 
   if (!email || !password) {
-    return res.status(400).json({message: "Bad request", msg_id:"BAD_REQUEST"})
+    return res.status(400).json({ message: "Bad request", msg_id: "BAD_REQUEST" })
   }
   const user = await User.findOne({
     where: { email },
@@ -97,7 +97,7 @@ const login = async (req, res) => {
   });
 };
 
-const logout = async (req, res) => {};
+const logout = async (req, res) => { };
 
 module.exports = {
   register,
