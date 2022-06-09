@@ -65,6 +65,7 @@ const buyProduct = async (req, res) => {
     });
 
     return res.status(200).json({
+      amount,
       currentCheckout,
       productName,
       // balanceAfterCheckout,
