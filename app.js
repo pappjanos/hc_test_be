@@ -5,6 +5,7 @@ const helmet = require("helmet");
 const cors = require("cors");
 const xss = require("xss-clean");
 const compression = require("compression");
+const logger = require("./middleware/logger");
 
 //utilities
 const routes = require("./routes/v1");
@@ -24,6 +25,7 @@ app.use(express.urlencoded({ extended: true }));
 app.use(cors());
 app.use(xss());
 app.use(compression());
+app.use(logger());
 
 // v1 api routes
 app.use("/v1", routes);
