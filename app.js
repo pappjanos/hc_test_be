@@ -31,6 +31,12 @@ app.use(logger());
 app.use("/v1", routes);
 
 const PORT = process.env.PORT || 1111;
-app.listen(PORT, () => {
-  console.log(`Server started at ${PORT}`);
-});
+
+if (require.main === module) {
+  app.listen(PORT, () => {
+    console.log(`Server started at ${PORT}`);
+  });
+}
+
+
+module.exports = app

@@ -1,7 +1,7 @@
 const express = require("express");
 const productController = require("../../controllers/product.controller");
 const router = express.Router();
-const verifyToken = require("../../utils/jwt");
+const {verifyToken} = require("../../utils/jwt");
 
 router
   .post("", verifyToken, productController.addProduct)

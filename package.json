@@ -2,10 +2,10 @@
   "name": "backend",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
+  "main": "app.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "dev": "nodemon app.js"
+    "dev": "nodemon app.js",
+    "test": "mocha --watch"
   },
   "keywords": [],
   "author": "",
@@ -20,6 +20,7 @@
     "express-rate-limit": "^5.5.1",
     "helmet": "^4.6.0",
     "http-status": "^1.5.0",
+    "jest": "^28.1.1",
     "jsonwebtoken": "^8.5.1",
     "morgan": "^1.10.0",
     "mysql2": "^2.3.3",
@@ -30,6 +31,9 @@
     "xss-clean": "^0.1.1"
   },
   "devDependencies": {
+    "chai": "^4.3.6",
+    "chai-http": "^4.3.0",
+    "mocha": "^10.0.0",
     "nodemon": "^2.0.15"
   }
 }
