@@ -27,7 +27,6 @@ app.use(xss());
 app.use(compression());
 app.use(logger());
 
-// v1 api routes
 app.use("/v1", routes);
 
 const PORT = process.env.PORT || 1111;

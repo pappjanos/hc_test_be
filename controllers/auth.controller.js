@@ -62,7 +62,7 @@ const register = async (req, res) => {
 
 const login = async (req, res) => {
   const { email, password } = req.body;
-
+  
   if (!email || !password) {
     return res.status(400).json({ message: "Bad request", msg_id: "BAD_REQUEST" })
   }
@@ -97,7 +97,13 @@ const login = async (req, res) => {
   });
 };
 
-const logout = async (req, res) => { };
+const logout = async (req, res) => {
+  req.session.name = null;
+  req.session.destroy(function (error) {
+    console.log("Session Destroyed")
+  })
+  return res.status(200).json({ message: "Logout successfull", msg_id: "LOGOUT_SUCCESS" });
+};
 
 module.exports = {
   register,

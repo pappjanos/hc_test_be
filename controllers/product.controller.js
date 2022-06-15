@@ -73,9 +73,14 @@ const deleteProduct = async (req, res) => {
 
 const getProducts = async (req, res) => {
   try {
-    const products = await Product.findAll({
+    const userId = res.locals.user.id
+    const userRole = res.locals.user.role
+    const products = userRole === 'seller' ? await Product.findAll({
       order: [["productName", "ASC"]],
-    });
+      where: { sellerId: userId },
+    }) : await Product.findAll({
+      order: [["productName", "ASC"]],
+    })
 
     return res.status(200).json({ products });
   }
